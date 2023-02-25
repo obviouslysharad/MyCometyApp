@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import BottomNavigationComponent from './components/BottomNavigation/BottomNavigation';
+import { Home } from './components/Home/Home';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Welcome to My Comety</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style={styles.container}>
+      {/* <Home /> */}
+      <BottomNavigationComponent />
+    </SafeAreaProvider>
   );
 }
 
