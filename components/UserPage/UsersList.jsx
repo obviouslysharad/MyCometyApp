@@ -1,7 +1,9 @@
 import React from 'react'
 import { FlatList, View, Text, ScrollView } from 'react-native'
+import {useSelector} from 'react-redux'
 
-const UsersList = ({users}) => {
+const UsersList = () => {
+  const users = useSelector(state => state.users)
   return (
     <ScrollView horizontal = {true}>
     <FlatList data = {users} renderItem = {({item, index}) => (

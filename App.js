@@ -1,22 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import {Provider} from 'react-redux'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import BottomNavigationComponent from './components/BottomNavigation/BottomNavigation';
 import { Home } from './components/Home/Home';
+import store from './store/store';
 
 export default function App() {
   return (
+    <Provider store = {store}>
     <SafeAreaProvider style={styles.container}>
-      {/* <Home /> */}
-      <BottomNavigationComponent />
+      <Home />
     </SafeAreaProvider>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ADD8E6',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,38 +1,33 @@
 import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
 import { BottomNavigation, Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import CometyMain from '../CometyPage/CometyMain';
 
-const BottomNavigationComponent = ({children}) => {
-    const MusicRoute = () => <Text>Music</Text>;
-    const AlbumsRoute = () => <Text>Albums</Text>;
-    const RecentsRoute = () => <Text>Recents</Text>;
+const BottomNavigationComponent = () => {
     const [index, setIndex] = useState(0);
     const [routes] = React.useState([
-        { key: 'music', title: 'Favorites', focusedIcon: 'heart', unfocusedIcon: 'heart-outline' },
-        { key: 'albums', title: 'Albums', focusedIcon: 'album' },
-        { key: 'recents', title: 'Recents', focusedIcon: 'history' },
-        { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
+        { key: 'CometyMain', title: 'Comety', focusedIcon: 'album'},
     ]);
 
-    const NotificationsRoute = () => <Text>Notifications</Text>;
     const renderScene = BottomNavigation.SceneMap({
-        music: MusicRoute,
-        albums: AlbumsRoute,
-        recents: RecentsRoute,
-        notifications: NotificationsRoute,
+        CometyMain: CometyMain
     });
 
     return (
-        <SafeAreaView style = {{height: '100vh', width: '100vw'}}>
-            <BottomNavigation
-                onIndexChange={setIndex}
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-            />
-        </SafeAreaView>
-
+        <BottomNavigation
+            onIndexChange={setIndex}
+            style = {styles.container}
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+        />
     );
 };
-
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        flex: 1,
+        borderWidth: 1,
+    },
+  });
 
 export default BottomNavigationComponent;
