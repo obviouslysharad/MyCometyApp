@@ -1,5 +1,5 @@
 import { setStatusBarBackgroundColor } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
