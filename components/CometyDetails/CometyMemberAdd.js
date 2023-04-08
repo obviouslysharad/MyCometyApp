@@ -6,12 +6,10 @@ import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import store from "../../store/store";
 import { addUserData } from "../../store/reducers/cometyData/cometyDataReducer";
-import Animated, {SlideOutLeft} from 'react-native-reanimated'
+import Animated, { SlideOutLeft } from "react-native-reanimated";
+import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 
-const CometyMemberAdd = ({
-  setEnableMemberAddPage,
-  setEnableConfirmAddPage,
-}) => {
+const CometyMemberAdd = () => {
   const [memberName, setMemberName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const selectedCometyName = getSelectedCometyName();
@@ -23,13 +21,10 @@ const CometyMemberAdd = ({
     setPhoneNumber("");
   };
   const proceed = () => {
-    setMemberName("");
-    setPhoneNumber("");
-    setEnableMemberAddPage(false);
-    setEnableConfirmAddPage(true);
+    store.dispatch(setActivePopup("MEMBER_CONFIRM"));
   };
   return (
-    <Animated.View exit = {SlideOutLeft}>
+    <Animated.View exit={SlideOutLeft}>
       <Text style={styles.textStyling}>{selectedCometyName} Comety</Text>
       <TextInput
         style={styles.textInput}

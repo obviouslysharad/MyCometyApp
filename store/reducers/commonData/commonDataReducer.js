@@ -3,13 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const commonDataSlice = createSlice({
     name: "commonData",
     initialState: {
-        displayOverlay: false,
+        activePopup: "MEMBER_ADD",
     },
     reducers: {
-        setDisplayOverlay: (state, action) => {
-            state.displayOverlay = action.payload;
-        },
+      
+        setActivePopup: (state, action) => {
+            state.activePopup = action.payload;
+        }
     }
 })
 
-export const { setDisplayOverlay } = commonDataSlice.actions;
+export const { setActivePopup } = commonDataSlice.actions;

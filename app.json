@@ -4,7 +4,7 @@
     "slug": "MyComety",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/MyComety",
+    "icon": "./assets/MyComety.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -24,7 +24,7 @@
     "android": {
       "userInterfaceStyle": "light",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/MyComety.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.obviouslysharad.MyComety"

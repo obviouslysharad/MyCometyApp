@@ -1,3 +1,3 @@
 import {useSelector} from 'react-redux'
 
-export const getDisplayOverlay = () => useSelector(state => state?.commonData?.displayOverlay)
+export const getActivePopup = () => useSelector(state => state?.commonData?.activePopup);

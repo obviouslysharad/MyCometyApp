@@ -8,16 +8,12 @@ const CometyTable = () => {
     <DataTable>
       <DataTable.Header>
         <DataTable.Title>Name</DataTable.Title>
-        <DataTable.Title>Phone Number</DataTable.Title>
-        <DataTable.Title>Paid</DataTable.Title>
         <DataTable.Title>Date</DataTable.Title>
         <DataTable.Title>Paid</DataTable.Title>
       </DataTable.Header>
       {membersData.map((memberData) => (
         <DataTable.Row>
           <DataTable.Cell>{memberData?.memberName}</DataTable.Cell>
-          <DataTable.Cell>{memberData?.phoneNumber}</DataTable.Cell>
-          <DataTable.Cell>Yes</DataTable.Cell>
           <DataTable.Cell>26th Mar</DataTable.Cell>
           <DataTable.Cell><Button>Paid</Button></DataTable.Cell>
         </DataTable.Row>

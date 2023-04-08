@@ -1,21 +1,18 @@
 import { setStatusBarBackgroundColor } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { setDisplayOverlay } from "../../store/reducers/commonData/commonDataReducer";
-import { getDisplayOverlay } from "../../store/reducers/commonData/commonDataSelector";
+import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
-import OverlayComponent from "../CommonComponents/OverlayComponent";
 import CometyHeaderHidden from "./CometyHeaderHidden";
 
 const CometyHeader = () => {
   const [hiddenEnable, setHiddenEnable] = useState(false);
-  const displayOverlay = getDisplayOverlay();
   useEffect(() => {
     setStatusBarBackgroundColor("#DEDDF1", true);
   }, []);
   function luckyDrawHandler() {
-    store.dispatch(setDisplayOverlay(!displayOverlay));
+    store.dispatch(setActivePopup('LUCKY_DRAW'));
   }
 
   return (
@@ -33,7 +30,6 @@ const CometyHeader = () => {
           <View style={styles.toggleBarStyle}></View>
         </View>
       </TouchableWithoutFeedback>
-      {displayOverlay && <OverlayComponent><View style = {{height: 50, width: 50, backgroundColor: 'green'}}><Text>Hi</Text></View></OverlayComponent>}
     </View>
   );
 };

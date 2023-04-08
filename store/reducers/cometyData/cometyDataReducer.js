@@ -7,6 +7,8 @@ export const cometyDataSlice = createSlice({
         cometyAmount: 0,
         usersData: [],
         cometyStartDate: '',
+        interestOfTheMonth: '',
+        winnerOfTheMonth: ''
     },
     reducers: {
         setSelectedCometyName: (state, action) => {
@@ -20,8 +22,14 @@ export const cometyDataSlice = createSlice({
         },
         setCometyStartDate: (state, action) => {
             state.cometyStartDate = action.payload;
+        },
+        setInterestOfTheMonth: (state, action) => {
+            state.interestOfTheMonth = action.payload;
+        },
+        setWinnerOfTheMonth: (state, action) => {
+            state.winnerOfTheMonth = action.payload;
         }
     }
 })
 
-export const { setSelectedCometyName, addUserData, setCometyAmount, setCometyStartDate } = cometyDataSlice.actions;
+export const { setSelectedCometyName, addUserData, setCometyAmount, setCometyStartDate, setInterestOfTheMonth, setWinnerOfTheMonth } = cometyDataSlice.actions;

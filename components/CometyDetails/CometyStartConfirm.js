@@ -10,8 +10,9 @@ import DateTimePicker from "../CommonComponents/DateTimePicker";
 import store from "../../store/store.js";
 import { getFormattedDate } from "../../utils/commonUtils";
 import Animated, {SlideInRight} from 'react-native-reanimated'
+import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 
-const CometyStartConfirm = ({setModalVisible}) => {
+const CometyStartConfirm = () => {
   const selectedCometyName = getSelectedCometyName();
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState();
@@ -19,7 +20,7 @@ const CometyStartConfirm = ({setModalVisible}) => {
   function startCometyHandler() {
     store.dispatch(setCometyAmount(amount));
     store.dispatch(setCometyStartDate(getFormattedDate(date)));
-    setModalVisible(false);
+    store.dispatch(setActivePopup(''));
   }
 
   return (
