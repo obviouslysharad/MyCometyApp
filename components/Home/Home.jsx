@@ -1,20 +1,29 @@
-import { useState } from "react";
 import { StyleSheet } from "react-native";
-import BottomNavigation from "../BottomNavigation/BottomNavigation";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import UserPageMain from "../UserPage/UserPageMain";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LandingPage from "../LandingPage/LandingPage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CometyMainPage from "../CometyPage/CometyMainPage";
+
+const Stack = createNativeStackNavigator();
 
 export function Home() {
-    const [cometyMainActive, setCometyMainActive] = useState(false);
-    const [users, setUsers] = useState([]);
-    return (<SafeAreaView style={styles.container} >
-        {cometyMainActive && <BottomNavigation />}
-        {!cometyMainActive && <UserPageMain users={users} setCometyMainActive={setCometyMainActive} />}
-    </SafeAreaView>)
+  return (
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="LandingPage" component={LandingPage} />
+          <Stack.Screen name="CometyPage" component={CometyMainPage} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create(
-    {
-        container: { flex: 1, flexDirection: 'row' }
-    }
-)
+const styles = StyleSheet.create({
+  container: { flex: 1, flexDirection: "row" },
+});
