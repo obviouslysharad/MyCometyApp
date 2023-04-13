@@ -11,6 +11,8 @@ import store from "../../store/store.js";
 import { getFormattedDate } from "../../utils/commonUtils";
 import Animated, {SlideInRight} from 'react-native-reanimated'
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 const CometyStartConfirm = () => {
   const selectedCometyName = getSelectedCometyName();
@@ -18,6 +20,7 @@ const CometyStartConfirm = () => {
   const [amount, setAmount] = useState();
   const [usersData, setUsersData] = useState(getUsersData());
   function startCometyHandler() {
+    if(!amount) return alert("Please enter some amount");
     store.dispatch(setCometyAmount(amount));
     store.dispatch(setCometyStartDate(getFormattedDate(date)));
     store.dispatch(setActivePopup(''));
@@ -29,7 +32,7 @@ const CometyStartConfirm = () => {
       <View style={styles.scrollViewContainer}>
         <ScrollView style={styles.scrollViewStyle}>
           {usersData.map((user) => (
-            <Text style={styles.textListStyle}>{user?.memberName}</Text>
+            <Text key={uuidv4()} style={styles.textListStyle}>{user?.memberName}</Text>
           ))}
         </ScrollView>
       </View>

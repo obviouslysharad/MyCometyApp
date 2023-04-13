@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 const InputSelect = ({ listItems, keyword, onSelect }) => {
   const [filteredItems, setFilteredItems] = useState(listItems);
@@ -14,7 +16,7 @@ const InputSelect = ({ listItems, keyword, onSelect }) => {
   return (
     <View style={styles.container}>
       {filteredItems.map((item) => (
-        <Text onPress={() => onSelect(item)} style={styles.textStyle}>
+        <Text key={uuidv4()} onPress={() => onSelect(item)} style={styles.textStyle}>
           {item?.memberName}
         </Text>
       ))}

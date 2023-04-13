@@ -2,8 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import { setInterestOfTheMonth, setWinnerOfTheMonth } from "../../store/reducers/cometyData/cometyDataReducer";
-import { getUsersData } from "../../store/reducers/cometyData/cometyDataSelector";
+import {
+  setInterestOfTheMonth,
+  setWinnerOfTheMonth,
+  updateUsersData,
+} from "../../store/reducers/cometyData/cometyDataReducer";
+import {
+  getUsersData,
+} from "../../store/reducers/cometyData/cometyDataSelector";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import InputSelect from "../CommonComponents/InputSelect";
@@ -12,7 +18,7 @@ const CometyLuckyDraw = () => {
   const [selectedMember, setSelectedMember] = useState("");
   const [showDropDown, setShowDropDown] = useState(false);
   const [randomButtonLoading, setRandomButtonLoading] = useState(false);
-  const [interest, setInterest] = useState("");
+  const [interest, setInterest] = useState(0);
   const usersData = getUsersData();
 
   const onSelect = (selectedItem) => {
@@ -21,18 +27,18 @@ const CometyLuckyDraw = () => {
   };
 
   const changeTextHandler = (text) => {
-    setSelectedMember({memberName: text});
+    setSelectedMember({ memberName: text });
     setShowDropDown(true);
   };
 
   const onBlurHandler = () => {
     setShowDropDown(false);
-  }
+  };
 
   const getRandomMember = () => {
     setRandomButtonLoading(true);
     setTimeout(() => {
-      setInterest('2');
+      setInterest(2);
       setSelectedMember(
         usersData[Math.floor(Math.random() * usersData.length)]
       );
@@ -42,10 +48,13 @@ const CometyLuckyDraw = () => {
 
   const submitHandler = () => {
     const { dispatch } = store;
+    if(!selectedMember?.memberId) return alert("Please select a member from the list!");
+    if(!interest) return alert("Please set some interest!");
     dispatch(setInterestOfTheMonth(interest));
     dispatch(setWinnerOfTheMonth(selectedMember));
+    dispatch(updateUsersData({interest: interest, selectedMember: selectedMember}));
     dispatch(setActivePopup(''));
-  }
+  };
 
   return (
     <View>
@@ -81,7 +90,12 @@ const CometyLuckyDraw = () => {
         onChangeText={setInterest}
         value={interest}
       />
-      <Button mode="elevated" style={styles.submitButton} uppercase onPress={submitHandler}>
+      <Button
+        mode="elevated"
+        style={styles.submitButton}
+        uppercase
+        onPress={submitHandler}
+      >
         Submit
       </Button>
     </View>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { setSelectedCometyName } from "../../store/reducers/cometyData/cometyDataReducer";
 import { addCometyName } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 16,
+    backgroundColor: '#fcfcff',
   },
   textInputStyle: {
     margin: 16,
@@ -47,7 +48,10 @@ const styles = StyleSheet.create({
   buttonStyle: {
     margin: 12,
     padding: 6,
-    borderRadius: 8,
+    borderRadius: 36,
+    backgroundColor: '#836fd1',
+    borderColor: 'white',
+    borderWidth: 1
   },
 });
 

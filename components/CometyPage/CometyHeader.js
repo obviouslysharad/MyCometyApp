@@ -9,7 +9,7 @@ import CometyHeaderHidden from "./CometyHeaderHidden";
 const CometyHeader = () => {
   const [hiddenEnable, setHiddenEnable] = useState(false);
   useEffect(() => {
-    setStatusBarBackgroundColor("#DEDDF1", true);
+    setStatusBarBackgroundColor("#e6e2f5", true);
   }, []);
   function luckyDrawHandler() {
     store.dispatch(setActivePopup('LUCKY_DRAW'));
@@ -18,10 +18,9 @@ const CometyHeader = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerMain}>
-        <Text style={styles.textStyling}>April</Text>
-        <View></View>
+        <Text textColor = "#1a1629" style={styles.textStyling}>April</Text>
         <View>
-          <Button onPress = {luckyDrawHandler} mode="outlined">Lucky Draw</Button>
+          <Button buttonColor = "white" onPress = {luckyDrawHandler} mode="elevated">Lucky Draw</Button>
         </View>
       </View>
       {hiddenEnable && <CometyHeaderHidden />}
@@ -35,21 +34,20 @@ const CometyHeader = () => {
 };
 
 export const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    borderBottomLeftRadius: 18,
+    borderBottomRightRadius: 18,
+    backgroundColor: "#e6e2f5",
+  },
   containerMain: {
     justifyContent: "space-between",
     flexDirection: "row",
-    height: 50,
-  },
-  container: {
-    padding: 10,
-    borderBottomLeftRadius: 14,
-    borderBottomRightRadius: 14,
-    backgroundColor: "#DEDDF1",
   },
   textStyling: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#301934",
+    color: "#27213e"
   },
   toggleBarContainerStyle: {
     width: "100%",

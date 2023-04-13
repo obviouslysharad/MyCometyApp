@@ -4,6 +4,7 @@ import { Portal, Provider } from "react-native-paper";
 import CometyTable from "./CometyTable";
 import CometyPopupInit from "../CometyDetails/CometyPopupInit";
 import CometyHeader from "./CometyHeader";
+import BottomNavigationScreen from "./BottomNavigationScreen";
 
 const CometyMainPage = () => {
   
@@ -13,7 +14,7 @@ const CometyMainPage = () => {
         <CometyPopupInit />
       </Portal>
       <CometyHeader/>
-      <CometyTable />
+      <BottomNavigationScreen />
     </Provider>
   );
 };
