@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { setSelectedCometyName } from "../../store/reducers/cometyData/cometyDataReducer";
 import { addCometyName } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
@@ -15,11 +15,14 @@ const LandingPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image style = {styles.imgStyle} source = {require('../../assets/start.png')} />
       <TextInput
         style={styles.textInputStyle}
         mode="outlined"
         label="Comety Name"
         onChangeText={setCometyName}
+        outlineColor = 'black'
+        activeOutlineColor = 'black'
       />
       <Button
         mode="elevated"
@@ -36,22 +39,29 @@ const LandingPage = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
+  imgStyle: {
+    height: 230,
+    width: 330,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     padding: 16,
-    backgroundColor: '#fcfcff',
+    backgroundColor: 'white',
+    alignItems: "center",
   },
   textInputStyle: {
-    margin: 16,
+    width: "70%",
+    marginTop: 60,
+    marginBottom: 30
   },
   buttonStyle: {
-    margin: 12,
     padding: 6,
     borderRadius: 36,
-    backgroundColor: '#836fd1',
+    backgroundColor: '#6C63FF',
     borderColor: 'white',
-    borderWidth: 1
+    borderWidth: 1,
+    width: '70%',
   },
 });
 

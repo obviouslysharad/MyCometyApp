@@ -13,3 +13,5 @@ export const getCometyData = () => useSelector((state) => state?.cometyData);
 export const getWinnerOfTheMonth = () => useSelector((state) => state?.cometyData?.winnderOfTheMonth);
 
 export const getInterestOfTheMonth = () => useSelector((state) => state?.cometyData?.interestOfTheMonth);
+
+export const getActiveMonth = () => useSelector((state) => state?.cometyData?.activeMonth);

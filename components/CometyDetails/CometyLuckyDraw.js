@@ -8,8 +8,11 @@ import {
   updateUsersData,
 } from "../../store/reducers/cometyData/cometyDataReducer";
 import {
+  getActiveMonth,
+  getCometyAmount,
   getUsersData,
 } from "../../store/reducers/cometyData/cometyDataSelector";
+import { addMonthData } from "../../store/reducers/cometyMonthly/cometyMonthlyReducer";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import InputSelect from "../CommonComponents/InputSelect";
@@ -20,6 +23,8 @@ const CometyLuckyDraw = () => {
   const [randomButtonLoading, setRandomButtonLoading] = useState(false);
   const [interest, setInterest] = useState(0);
   const usersData = getUsersData();
+  const activeMonth = getActiveMonth();
+  const cometyAmount = getCometyAmount();
 
   const onSelect = (selectedItem) => {
     setSelectedMember(selectedItem);
@@ -52,8 +57,36 @@ const CometyLuckyDraw = () => {
     if(!interest) return alert("Please set some interest!");
     dispatch(setInterestOfTheMonth(interest));
     dispatch(setWinnerOfTheMonth(selectedMember));
-    dispatch(updateUsersData({interest: interest, selectedMember: selectedMember}));
-    dispatch(setActivePopup(''));
+    dispatch(
+      updateUsersData({ interest: interest, selectedMember: selectedMember })
+    );
+    const updatedUsersData = usersData.reduce((acc, user) => {
+      const userData =
+        user.memberId === selectedMember?.memberId
+          ? {
+              ...user,
+              amount: cometyAmount - (cometyAmount * interest) / 100,
+              isWinner: true,
+            }
+          : {
+              ...user,
+              amount:
+                (cometyAmount - (cometyAmount * interest) / 100) /
+                usersData.length,
+              isWinner: false,
+            };
+      return [...acc, userData];
+    }, []);
+    const monthPayload = {
+      [activeMonth]: {
+        interest: interest,
+        winnerOfTheMonth: selectedMember,
+        userData: updatedUsersData,
+      },
+    };
+    console.log(monthPayload);
+    dispatch(addMonthData(monthPayload));
+    dispatch(setActivePopup(""));
   };
 
   return (

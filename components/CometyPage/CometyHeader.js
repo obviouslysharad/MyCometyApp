@@ -2,26 +2,27 @@ import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
-import store from "../../store/store";
+import { getActiveMonth } from "../../store/reducers/cometyData/cometyDataSelector";
+import SelectInput from "../CommonComponents/SelectInput";
 import CometyHeaderHidden from "./CometyHeaderHidden";
 
 const CometyHeader = () => {
+  const activeMonth = getActiveMonth();
   const [hiddenEnable, setHiddenEnable] = useState(false);
+  const [listEnable, setListEnable] = useState(false);
   useEffect(() => {
-    setStatusBarBackgroundColor("#e6e2f5", true);
+    setStatusBarBackgroundColor("#b4b0ff", true);
   }, []);
-  function luckyDrawHandler() {
-    store.dispatch(setActivePopup('LUCKY_DRAW'));
-  }
 
   return (
     <View style={styles.container}>
       <View style={styles.containerMain}>
-        <Text textColor = "#1a1629" style={styles.textStyling}>April</Text>
-        <View>
-          <Button buttonColor = "white" onPress = {luckyDrawHandler} mode="elevated">Lucky Draw</Button>
-        </View>
+        <TouchableWithoutFeedback onPress={() => setListEnable(true)}>
+          <Text textColor="#1a1629" style={styles.textStyling}>
+            {activeMonth}
+          </Text>
+        </TouchableWithoutFeedback>
+        {listEnable && <SelectInput setListEnable={setListEnable} />}
       </View>
       {hiddenEnable && <CometyHeaderHidden />}
       <TouchableWithoutFeedback onPress={() => setHiddenEnable(!hiddenEnable)}>
@@ -38,7 +39,10 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderBottomLeftRadius: 18,
     borderBottomRightRadius: 18,
-    backgroundColor: "#e6e2f5",
+    backgroundColor: "#b4b0ff",
+    borderColor: "#808080",
+    borderWidth: 1,
+    borderTopWidth: 0,
   },
   containerMain: {
     justifyContent: "space-between",
@@ -47,7 +51,7 @@ export const styles = StyleSheet.create({
   textStyling: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#27213e"
+    color: "white",
   },
   toggleBarContainerStyle: {
     width: "100%",

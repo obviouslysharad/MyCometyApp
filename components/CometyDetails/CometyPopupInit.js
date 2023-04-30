@@ -46,8 +46,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 36,
     borderTopRightRadius: 36,
-    borderTopWidth: 5,
-    borderColor: "#E6E6FA",
   },
 });
 

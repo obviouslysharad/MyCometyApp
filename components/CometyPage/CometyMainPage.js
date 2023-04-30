@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Portal, Provider } from "react-native-paper";
-import CometyTable from "./CometyTable";
 import CometyPopupInit from "../CometyDetails/CometyPopupInit";
 import CometyHeader from "./CometyHeader";
 import BottomNavigationScreen from "./BottomNavigationScreen";
 
 const CometyMainPage = () => {
-  
   return (
     <Provider>
       <Portal>
         <CometyPopupInit />
       </Portal>
-      <CometyHeader/>
+      <CometyHeader />
       <BottomNavigationScreen />
     </Provider>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LandingPage from "../LandingPage/LandingPage";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,5 +25,5 @@ export function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, flexDirection: "row" },
+  container: { height: Dimensions.get("screen").height, flexDirection: "row" },
 });

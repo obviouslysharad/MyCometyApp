@@ -6,7 +6,6 @@ export const commonDataSlice = createSlice({
         activePopup: "MEMBER_ADD",
     },
     reducers: {
-      
         setActivePopup: (state, action) => {
             state.activePopup = action.payload;
         }

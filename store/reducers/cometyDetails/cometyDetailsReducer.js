@@ -11,7 +11,7 @@ export const cometyDetailsSlice = createSlice({
     addCometyName: (state, action) => {
       state.cometyList = [
         ...state.cometyList,
-        { cometyId: [uuidv4()], cometyName: action.payload },
+        { cometyId: uuidv4(), cometyName: action.payload },
       ];
     },
   },
