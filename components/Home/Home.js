@@ -25,5 +25,5 @@ export function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: { height: Dimensions.get("screen").height, flexDirection: "row" },
+  container: { height: Dimensions.get("window").height, flexDirection: "row" },
 });

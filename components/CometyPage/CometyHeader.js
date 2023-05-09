@@ -1,18 +1,17 @@
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { getActiveMonth } from "../../store/reducers/cometyData/cometyDataSelector";
 import SelectInput from "../CommonComponents/SelectInput";
-import CometyHeaderHidden from "./CometyHeaderHidden";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CometyHeader = () => {
   const activeMonth = getActiveMonth();
-  const [hiddenEnable, setHiddenEnable] = useState(false);
   const [listEnable, setListEnable] = useState(false);
   useEffect(() => {
-    setStatusBarBackgroundColor("#b4b0ff", true);
-  }, []);
+    setStatusBarBackgroundColor("white", true);
+  });
 
   return (
     <View style={styles.container}>
@@ -20,16 +19,12 @@ const CometyHeader = () => {
         <TouchableWithoutFeedback onPress={() => setListEnable(true)}>
           <Text textColor="#1a1629" style={styles.textStyling}>
             {activeMonth}
+            <Icon name="chevron-down" size={18} color='white' />
           </Text>
         </TouchableWithoutFeedback>
         {listEnable && <SelectInput setListEnable={setListEnable} />}
       </View>
-      {hiddenEnable && <CometyHeaderHidden />}
-      <TouchableWithoutFeedback onPress={() => setHiddenEnable(!hiddenEnable)}>
-        <View style={styles.toggleBarContainerStyle}>
-          <View style={styles.toggleBarStyle}></View>
-        </View>
-      </TouchableWithoutFeedback>
+  
     </View>
   );
 };
@@ -37,21 +32,26 @@ const CometyHeader = () => {
 export const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18,
-    backgroundColor: "#b4b0ff",
+    backgroundColor: "#ffffff",
     borderColor: "#808080",
-    borderWidth: 1,
-    borderTopWidth: 0,
+    zIndex: 100
   },
   containerMain: {
     justifyContent: "space-between",
     flexDirection: "row",
+    alignItems: "center",
   },
   textStyling: {
-    fontSize: 32,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
+    backgroundColor: 'black',
+    borderRadius: 10,
+    padding: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    margin: 5,
+    alignSelf: 'center'
   },
   toggleBarContainerStyle: {
     width: "100%",

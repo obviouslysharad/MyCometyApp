@@ -2,15 +2,39 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, BottomNavigation } from "react-native-paper";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Ledger from "./Ledger";
 import CometyHome from "./CometyHome";
+import AccountsMainPage from "../AccountsPage/AccountsMainPage";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigationScreen() {
   return (
-    <CometyHome />
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { height: 50, borderTopLeftRadius: 20, borderTopRightRadius: 20 } }}>
+      <Tab.Screen
+        name="Home"
+        component={CometyHome}
+        options={{
+          
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="home" size={size} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Accounts"
+        component={AccountsMainPage}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="account-circle" size={size} color={color} />;
+          },
+          sceneContainerStyle: {zIndex: -1}
+        }}
+      />
+    </Tab.Navigator>
+
+
     // <Tab.Navigator
     //   screenOptions={{
     //     headerShown: false,
@@ -89,14 +113,6 @@ export default function BottomNavigationScreen() {
     //     }}
     //   />
     // </Tab.Navigator>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={styles.container}>
-      <Text variant="headlineMedium">Settings!</Text>
-    </View>
   );
 }
 

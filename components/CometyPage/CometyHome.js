@@ -13,7 +13,7 @@ const CometyHome = () => {
     <View style={styles.container}>
         <CometyTable/>
         <View style = {styles.luckyDrawBtnContainer}>
-        <Button textColor = "white" style = {styles.luckyDrawBtn} mode="contained-tonal" onPress = {luckyDrawHandler}>LUCKY DRAW</Button>
+            <Button textColor = "white" style = {styles.luckyDrawBtn} mode="outlined" onPress = {luckyDrawHandler}>LUCKY DRAW</Button>
         </View>
     </View>
   )
@@ -24,10 +24,11 @@ export const styles = StyleSheet.create({
         position: 'relative',
         height: '100%',
         width: '100%',
+        backgroundColor: '#FAFAFA'
     },
     luckyDrawBtnContainer: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 10,
         left: 0,
         right: 0,
         alignItems: 'center',

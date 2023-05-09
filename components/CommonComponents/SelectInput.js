@@ -27,12 +27,12 @@ const SelectInput = ({setListEnable}) => {
 export const styles = StyleSheet.create({
   container: {
     position: "absolute",
+    marginLeft: 10
   },
   listContainer: {
     position: "absolute",
-    top: 40,
+    top: 25,
     width: 70,
-    zIndex: 100,
     padding: 12,
     backgroundColor: 'white',
     justifyContent: 'center',

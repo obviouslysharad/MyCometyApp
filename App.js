@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Home } from "./components/Home/Home";
@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: '#FAFAFA'
   },
 });

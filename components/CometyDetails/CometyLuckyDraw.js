@@ -84,7 +84,6 @@ const CometyLuckyDraw = () => {
         userData: updatedUsersData,
       },
     };
-    console.log(monthPayload);
     dispatch(addMonthData(monthPayload));
     dispatch(setActivePopup(""));
   };

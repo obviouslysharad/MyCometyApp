@@ -32,7 +32,20 @@ export const cometyMonthlySlice = createSlice({
         ...action.payload,
       };
     },
+    updateMemberData: (state, action) => {
+      if (!action.payload?.activeMonth) return;
+      const activeMonth = action.payload.activeMonth;
+      const memberData = action.payload.memberData;
+      const previousUserData = state.dataAllMonths[activeMonth]['userData'];
+      const updatedData = previousUserData.map(element => {
+        if(element.memberId === memberData.memberId) {
+          element = memberData;
+        }
+        return element;
+      });
+      state.dataAllMonths[activeMonth]['userData'] = updatedData;
+    }
   },
 });
 
-export const { addMonthData } = cometyMonthlySlice.actions;
+export const { addMonthData, updateMemberData } = cometyMonthlySlice.actions;

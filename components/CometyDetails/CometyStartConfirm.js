@@ -34,7 +34,6 @@ const CometyStartConfirm = () => {
       acc[month] = { userData: usersData };
       return acc;
     }, {});
-    console.log(populateData, "testss");
     store.dispatch(addMonthData(populateData));
     store.dispatch(setCometyAmount(amount));
     store.dispatch(setCometyStartDate(getFormattedDate(date)));
@@ -60,6 +59,8 @@ const CometyStartConfirm = () => {
           onChangeText={setAmount}
           mode="outlined"
           label="Amount"
+          outlineColor = 'black'
+          activeOutlineColor = 'black'
         />
         <DateTimePicker date={date} setDate={setDate} />
         <Button
@@ -67,6 +68,7 @@ const CometyStartConfirm = () => {
           mode="elevated"
           style={styles.buttonStyle}
           onPress={startCometyHandler}
+          textColor='white'
         >
           Start
         </Button>
@@ -93,14 +95,16 @@ export const styles = StyleSheet.create({
   scrollViewContainer: {
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: "#BDB5D5",
+    borderColor: "black",
     marginTop: 14,
     marginBottom: 6,
     padding: 4,
   },
   formStyleContainer: {},
   buttonStyle: {
-    margin: 10,
+    marginBottom: 10,
+    marginTop: 10,
+    backgroundColor: '#6C63FF',
   },
 });
 

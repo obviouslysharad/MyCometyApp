@@ -32,6 +32,8 @@ const CometyMemberAdd = () => {
         label="Member Name"
         value={memberName}
         onChangeText={setMemberName}
+        outlineColor = 'black'
+        activeOutlineColor = 'black'
       />
       <TextInput
         style={styles.textInput}
@@ -39,6 +41,8 @@ const CometyMemberAdd = () => {
         label="Phone Number"
         value={phoneNumber}
         onChangeText={setPhoneNumber}
+        outlineColor = 'black'
+        activeOutlineColor = 'black'
       />
       <Button
         mode="elevated"
@@ -46,15 +50,16 @@ const CometyMemberAdd = () => {
         textColor="white"
         disabled=""
         uppercase
-        style={styles.buttonStyle}
+        style={[styles.buttonStyle, styles.btnColor]}
         onPress={addUser}
       >
         Add User
       </Button>
       <Button
-        mode="elevated"
+        mode="outlined"
         disabled=""
         uppercase
+        textColor="#6C63FF"
         style={styles.buttonStyle}
         onPress={proceed}
       >
@@ -71,6 +76,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     margin: 8,
+  },
+  btnColor: {
+    backgroundColor: '#6C63FF',
   },
   buttonStyle: {
     margin: 8,
