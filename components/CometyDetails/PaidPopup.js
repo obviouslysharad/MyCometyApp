@@ -5,6 +5,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import store from "../../store/store";
 import { updateMemberData } from "../../store/reducers/cometyMonthly/cometyMonthlyReducer";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
+import DateTimePicker from "../CommonComponents/DateTimePicker";
+import { useState } from "react";
+import { getFormattedDate } from "../../utils/commonUtils";
 
 const LeftSwipeActions = () => {
   return (
@@ -15,17 +18,24 @@ const LeftSwipeActions = () => {
 };
 
 const PaidPopup = ({ activePopupProps }) => {
+  const [date, setDate] = useState(new Date());
   const onSwipeableLeftOpenHandler = () => {
     const payload = {
       activeMonth: activePopupProps?.activeMonth,
-      memberData: { ...activePopupProps?.memberData, paid: true },
+      memberData: { ...activePopupProps?.memberData, paid: true, date: getFormattedDate(date) },
     };
     store.dispatch(updateMemberData(payload));
-    store.dispatch(setActivePopup(''));
+    store.dispatch(setActivePopup(""));
   };
   return (
-    <View>
-      <Text style = {styles.textStyle}>{activePopupProps.memberData.memberName} has paid</Text>
+    <View style = {styles.container}>
+      <Text style={styles.textStyle}>
+        {activePopupProps.memberData.memberName} has paid
+      </Text>
+      <View style={styles.paidDateContainer}>
+        <Text>Paid Date:</Text>
+        <DateTimePicker date={date} setDate={setDate} />
+      </View>
       <GestureHandlerRootView>
         <Swipeable
           renderLeftActions={LeftSwipeActions}
@@ -43,11 +53,13 @@ const PaidPopup = ({ activePopupProps }) => {
 };
 
 export const styles = StyleSheet.create({
-  container: {},
+  container: {
+    paddingHorizontal: 10
+  },
   textStyle: {
     fontSize: 18,
-    alignSelf: 'center',
-    padding: 20
+    alignSelf: "center",
+    padding: 20,
   },
   swipeableDefaultCont: {
     paddingHorizontal: 30,
@@ -74,6 +86,9 @@ export const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
     fontWeight: "bold",
+  },
+  paidDateContainer: {
+    padding: 15,
   },
 });
 

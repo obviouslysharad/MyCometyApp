@@ -16,7 +16,6 @@ const DateTimePicker = ({date, setDate}) => {
     <View style = {styles.container}>
         {enableDatePopup && <RNDateTimePicker onChange={onChangeHandler} value={date} />}
         <Text style= {styles.textStyling} onPress = {() => setEnableDatePopup(true)}>{dateFormatted}</Text>
-        {/* <Button style= {styles.buttonStyling} buttonColor = '#CBC3E3' onPress = {() => setEnableDatePopup(true)}>Change</Button> */}
     </View>
   );
 };
