@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   View,
 } from "react-native";
@@ -36,11 +37,9 @@ const CometyPopupInit = () => {
       visible={activePopup}
       style={styles.modalContainer}
     >
-      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={350}>
         <Animated.View entering={SlideInDown.delay(0)} style={styles.container}>
           {renderActivePopup()}
         </Animated.View>
-      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -50,13 +49,16 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     justifyContent: "flex-end",
+    position: 'absolute',
+    height: "100%",
   },
   container: {
-    maxHeight: Dimensions.get("window").height,
+    maxHeight: '100%',
     padding: 20,
     backgroundColor: "white",
     borderTopLeftRadius: 36,
     borderTopRightRadius: 36,
+    paddingBottom: Platform.OS === "ios" ? 80 : 50,
   },
 });
 

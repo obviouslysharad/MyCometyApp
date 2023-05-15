@@ -1,33 +1,41 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import { setSelectedCometyName } from "../../store/reducers/cometyData/cometyDataReducer";
-import { addCometyName } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
+import {
+  addComety,
+  setActiveCometyId,
+} from "../../store/reducers/cometyDetails/cometyDetailsReducer";
 import store from "../../store/store";
+import { v4 as uuidv4 } from "uuid";
+import { setActivePopup, setActiveScreen } from "../../store/reducers/commonData/commonDataReducer";
 
-const LandingPage = ({ navigation }) => {
+const LandingPage = () => {
   const [cometyName, setCometyName] = useState("");
   const changeScreen = () => {
-    store.dispatch(setSelectedCometyName(cometyName));
-    store.dispatch(addCometyName(cometyName));
-    navigation.navigate("CometyPage");
+    const payload = { cometyId: uuidv4(), cometyName: cometyName };
+    store.dispatch(setActiveCometyId(payload.cometyId));
+    store.dispatch(addComety(payload));
+    store.dispatch(setActiveScreen('MAIN_SCREEN'));
+    store.dispatch(setActivePopup('MEMBER_ADD'));
   };
 
   return (
     <View style={styles.container}>
-      <Image style = {styles.imgStyle} source = {require('../../assets/start.png')} />
+      <Image
+        style={styles.imgStyle}
+        source={require("../../assets/start.png")}
+      />
       <TextInput
         style={styles.textInputStyle}
         mode="outlined"
         label="Comety Name"
         onChangeText={setCometyName}
-        outlineColor = 'black'
-        activeOutlineColor = 'black'
+        outlineColor="black"
+        activeOutlineColor="black"
       />
       <Button
         mode="elevated"
         style={styles.buttonStyle}
-        buttonColor="#7A4988"
         textColor="white"
         disabled=""
         uppercase
@@ -47,21 +55,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     alignItems: "center",
   },
   textInputStyle: {
     width: "70%",
     marginTop: 60,
-    marginBottom: 30
+    marginBottom: 30,
   },
   buttonStyle: {
     padding: 6,
     borderRadius: 36,
-    backgroundColor: '#6C63FF',
-    borderColor: 'white',
+    backgroundColor: "#6C63FF",
+    borderColor: "white",
     borderWidth: 1,
-    width: '70%',
+    width: "70%",
   },
 });
 

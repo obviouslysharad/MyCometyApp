@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const commonDataSlice = createSlice({
     name: "commonData",
     initialState: {
-        activePopup: "MEMBER_ADD",
+        activePopup: "",
+        activeScreen: "CREATE_COMETY",
         activePopupProps: {}
     },
     reducers: {
@@ -12,8 +13,11 @@ export const commonDataSlice = createSlice({
         },
         setActivePopupProps: (state, action) => {
             state.activePopupProps = action.payload;
+        },
+        setActiveScreen: (state, action) => {
+            state.activeScreen = action.payload;
         }
     }
 })
 
-export const { setActivePopup, setActivePopupProps } = commonDataSlice.actions;
+export const { setActivePopup, setActivePopupProps, setActiveScreen } = commonDataSlice.actions;

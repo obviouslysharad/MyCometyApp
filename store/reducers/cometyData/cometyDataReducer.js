@@ -3,17 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cometyDataSlice = createSlice({
   name: "cometyData",
   initialState: {
-    selectedCometyName: "",
+    activeCometyName: "",
     cometyAmount: 0,
     usersData: [],
     cometyStartDate: "",
     interestOfTheMonth: "",
     winnerOfTheMonth: "",
     activeMonth: "",
+    activeCometyId: "",
   },
   reducers: {
-    setSelectedCometyName: (state, action) => {
-      state.selectedCometyName = action.payload;
+    setActiveCometyName: (state, action) => {
+      state.activeCometyName = action.payload;
+    },
+    setActiveCometyId: (state, action) => {
+      state.activeCometyId = action.payload;
     },
     addUserData: (state, action) => {
       state.usersData.push(action.payload);
@@ -60,7 +64,8 @@ export const cometyDataSlice = createSlice({
 });
 
 export const {
-  setSelectedCometyName,
+  setActiveCometyId,
+  setActiveCometyName,
   addUserData,
   setCometyAmount,
   setCometyStartDate,

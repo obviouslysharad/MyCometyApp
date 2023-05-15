@@ -5,7 +5,6 @@ import { Button, Text, TextInput } from "react-native-paper";
 import {
   setInterestOfTheMonth,
   setWinnerOfTheMonth,
-  updateUsersData,
 } from "../../store/reducers/cometyData/cometyDataReducer";
 import {
   getActiveMonth,
@@ -16,15 +15,19 @@ import { addMonthData } from "../../store/reducers/cometyMonthly/cometyMonthlyRe
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import InputSelect from "../CommonComponents/InputSelect";
+import { colorPalette } from "../../utils/styleUtils";
+import { updateWinnerUsersData } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
+import {
+  activeMonthSelector,
+  currentUsersDataSelector,
+} from "../../store/reducers/cometyDetails/cometyDetailsSelector";
 
 const CometyLuckyDraw = () => {
   const [selectedMember, setSelectedMember] = useState("");
   const [showDropDown, setShowDropDown] = useState(false);
   const [randomButtonLoading, setRandomButtonLoading] = useState(false);
   const [interest, setInterest] = useState(0);
-  const usersData = getUsersData();
-  const activeMonth = getActiveMonth();
-  const cometyAmount = getCometyAmount();
+  const usersData = currentUsersDataSelector();
 
   const onSelect = (selectedItem) => {
     setSelectedMember(selectedItem);
@@ -42,52 +45,24 @@ const CometyLuckyDraw = () => {
 
   const getRandomMember = () => {
     setRandomButtonLoading(true);
-    setTimeout(() => {
-      setInterest(2);
-      setSelectedMember(
-        usersData[Math.floor(Math.random() * usersData.length)]
-      );
-      setRandomButtonLoading(false);
-    }, 500);
+    setInterest("2");
+    setSelectedMember(usersData[Math.floor(Math.random() * usersData.length)]);
+    setRandomButtonLoading(false);
   };
 
   const submitHandler = () => {
     const { dispatch } = store;
-    if(!selectedMember?.memberId) return alert("Please select a member from the list!");
-    if(!interest) return alert("Please set some interest!");
-    dispatch(setInterestOfTheMonth(interest));
-    dispatch(setWinnerOfTheMonth(selectedMember));
+    if (!selectedMember?.memberId)
+      return alert("Please select a member from the list!");
+    if (!interest) return alert("Please set some interest!");
     dispatch(
-      updateUsersData({ interest: interest, selectedMember: selectedMember })
-    );
-    const updatedUsersData = usersData.reduce((acc, user) => {
-      const userData =
-        user.memberId === selectedMember?.memberId
-          ? {
-              ...user,
-              amount: cometyAmount - (cometyAmount * interest) / 100,
-              isWinner: true,
-            }
-          : {
-              ...user,
-              amount:
-                (cometyAmount - (cometyAmount * interest) / 100) /
-                usersData.length,
-              isWinner: false,
-            };
-      return [...acc, userData];
-    }, []);
-    const monthPayload = {
-      [activeMonth]: {
+      updateWinnerUsersData({
         interest: interest,
-        winnerOfTheMonth: selectedMember,
-        userData: updatedUsersData,
-      },
-    };
-    dispatch(addMonthData(monthPayload));
+        selectedMember: selectedMember,
+      })
+    );
     dispatch(setActivePopup(""));
   };
-
   return (
     <View>
       <Text style={styles.textStyling}>Comety Lucky Draw</Text>
@@ -99,6 +74,9 @@ const CometyLuckyDraw = () => {
           value={selectedMember?.memberName}
           onChangeText={changeTextHandler}
           onBlur={onBlurHandler}
+          outlineColor={colorPalette.inputDefaultOutlineColor}
+          activeOutlineColor={colorPalette.inputActiveOutlineColor}
+          textColor={colorPalette.textInputTextColor}
         />
         {showDropDown && (
           <InputSelect
@@ -111,6 +89,7 @@ const CometyLuckyDraw = () => {
           style={styles.randomButton}
           loading={randomButtonLoading}
           onPress={getRandomMember}
+          textColor={colorPalette.primaryBtnColor}
         >
           Random Member
         </Button>
@@ -121,11 +100,16 @@ const CometyLuckyDraw = () => {
         label="Interest"
         onChangeText={setInterest}
         value={interest}
+        outlineColor={colorPalette.inputDefaultOutlineColor}
+        activeOutlineColor={colorPalette.inputActiveOutlineColor}
+        textColor={colorPalette.textInputTextColor}
       />
       <Button
         mode="elevated"
         style={styles.submitButton}
         uppercase
+        textColor="white"
+        buttonColor={colorPalette.primaryBtnColor}
         onPress={submitHandler}
       >
         Submit
@@ -144,12 +128,14 @@ const styles = StyleSheet.create({
   textInput: {
     margin: 8,
     zIndex: -1,
+    backgroundColor: colorPalette.textInputBackgroundColor,
   },
   buttonStyle: {
     margin: 8,
   },
   randomButton: {
     width: 140,
+    color: "black",
   },
   submitButton: {
     marginTop: 16,

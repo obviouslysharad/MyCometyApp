@@ -1,17 +1,14 @@
-import { setStatusBarBackgroundColor } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { getActiveMonth } from "../../store/reducers/cometyData/cometyDataSelector";
 import SelectInput from "../CommonComponents/SelectInput";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { activeMonthSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector";
 
 const CometyHeader = () => {
-  const activeMonth = getActiveMonth();
+  const activeMonth = activeMonthSelector();
   const [listEnable, setListEnable] = useState(false);
-  useEffect(() => {
-    setStatusBarBackgroundColor("white", true);
-  });
 
   return (
     <View style={styles.container}>
@@ -19,22 +16,23 @@ const CometyHeader = () => {
         <TouchableWithoutFeedback onPress={() => setListEnable(true)}>
           <Text textColor="#1a1629" style={styles.textStyling}>
             {activeMonth}
-            <Icon name="chevron-down" size={18} color='white' />
+            <Icon name="chevron-down" size={18} color="white" />
           </Text>
         </TouchableWithoutFeedback>
         {listEnable && <SelectInput setListEnable={setListEnable} />}
       </View>
-  
     </View>
   );
 };
 
 export const styles = StyleSheet.create({
   container: {
+    width: "100%",
     padding: 10,
     backgroundColor: "#ffffff",
     borderColor: "#808080",
-    zIndex: 100
+    zIndex: 100,
+    height: "100%",
   },
   containerMain: {
     justifyContent: "space-between",
@@ -42,16 +40,16 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   textStyling: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     color: "white",
-    backgroundColor: 'black',
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     paddingLeft: 15,
     paddingRight: 15,
     margin: 5,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   toggleBarContainerStyle: {
     width: "100%",

@@ -1,43 +1,26 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View, Dimensions } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import {
-  addUserData,
-  setActiveMonth,
-  setCometyAmount,
-  setCometyStartDate,
-} from "../../store/reducers/cometyData/cometyDataReducer";
-import {
-  getSelectedCometyName,
-  getUsersData,
-} from "../../store/reducers/cometyData/cometyDataSelector";
 import DateTimePicker from "../CommonComponents/DateTimePicker";
 import store from "../../store/store.js";
 import { getFormattedDate } from "../../utils/commonUtils";
 import Animated, { SlideInRight } from "react-native-reanimated";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
+import { initiateComety } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
+import { activeCometyNameSelector, currentUsersDataSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { getMonthsList } from "../../store/reducers/cometyMonthly/cometyMonthlySelector";
-import { addMonthData } from "../../store/reducers/cometyMonthly/cometyMonthlyReducer";
+import { colorPalette } from "../../utils/styleUtils";
 
 const CometyStartConfirm = () => {
-  const selectedCometyName = getSelectedCometyName();
-  const monthsList = getMonthsList();
-  const usersData = getUsersData();
+  const selectedCometyName = activeCometyNameSelector();
+  const usersData = currentUsersDataSelector();
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState();
 
   function startCometyHandler() {
     if (!amount) return alert("Please enter some amount");
-    const populateData = monthsList?.reduce((acc, month) => {
-      acc[month] = { userData: usersData };
-      return acc;
-    }, {});
-    store.dispatch(addMonthData(populateData));
-    store.dispatch(setCometyAmount(amount));
-    store.dispatch(setCometyStartDate(getFormattedDate(date)));
-    store.dispatch(setActiveMonth(monthsList[date.getMonth()]));
+    store.dispatch(initiateComety({ startDate: getFormattedDate(date), amount: amount, activeMonthBoolean: date.getMonth()}))
     store.dispatch(setActivePopup(""));
   }
 
@@ -61,6 +44,8 @@ const CometyStartConfirm = () => {
           label="Amount"
           outlineColor = 'black'
           activeOutlineColor = 'black'
+          textColor={colorPalette.textInputTextColor}
+          style = {styles.textInputStyle}
         />
         <DateTimePicker date={date} setDate={setDate} />
         <Button
@@ -91,6 +76,9 @@ export const styles = StyleSheet.create({
   },
   textListStyle: {
     margin: 10,
+  },
+  textInputStyle: {
+    backgroundColor: colorPalette.textInputBackgroundColor
   },
   scrollViewContainer: {
     borderRadius: 6,

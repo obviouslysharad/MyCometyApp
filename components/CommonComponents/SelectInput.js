@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { setActiveMonth } from "../../store/reducers/cometyData/cometyDataReducer.js";
-import { getActiveMonth } from "../../store/reducers/cometyData/cometyDataSelector.js";
-import { getMonthsList } from "../../store/reducers/cometyMonthly/cometyMonthlySelector.js";
+import { setActiveMonth } from "../../store/reducers/cometyDetails/cometyDetailsReducer.js";
+import { monthsListSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector.js";
 import store from "../../store/store.js";
 
 const SelectInput = ({setListEnable}) => {
-  const monthsList = getMonthsList();
+  const monthsList = monthsListSelector();
   function selectHandler(monthSelected) {
     store.dispatch(setActiveMonth(monthSelected))
     setListEnable(false);

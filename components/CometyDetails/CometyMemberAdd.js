@@ -5,14 +5,17 @@ import { getSelectedCometyName } from "../../store/reducers/cometyData/cometyDat
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import store from "../../store/store";
-import { addUserData } from "../../store/reducers/cometyData/cometyDataReducer";
 import Animated, { SlideOutLeft } from "react-native-reanimated";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
+import { addUserData } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
+import { activeCometyNameSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector";
+import { colorPalette } from "../../utils/styleUtils";
+
 
 const CometyMemberAdd = () => {
   const [memberName, setMemberName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const selectedCometyName = getSelectedCometyName();
+  const selectedCometyName = activeCometyNameSelector();
   const addUser = () => {
     store.dispatch(
       addUserData({ memberId: uuidv4(), memberName, phoneNumber })
@@ -34,6 +37,7 @@ const CometyMemberAdd = () => {
         onChangeText={setMemberName}
         outlineColor = 'black'
         activeOutlineColor = 'black'
+        textColor={colorPalette.textInputTextColor}
       />
       <TextInput
         style={styles.textInput}
@@ -43,6 +47,7 @@ const CometyMemberAdd = () => {
         onChangeText={setPhoneNumber}
         outlineColor = 'black'
         activeOutlineColor = 'black'
+        textColor={colorPalette.textInputTextColor}
       />
       <Button
         mode="elevated"
@@ -76,6 +81,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     margin: 8,
+    backgroundColor: colorPalette.textInputBackgroundColor,
+    color: 'black'
   },
   btnColor: {
     backgroundColor: '#6C63FF',
