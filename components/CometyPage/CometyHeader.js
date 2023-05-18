@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import { Button, Text } from "react-native-paper";
-import { getActiveMonth } from "../../store/reducers/cometyData/cometyDataSelector";
+import { Text } from "react-native-paper";
 import SelectInput from "../CommonComponents/SelectInput";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { activeMonthSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector";

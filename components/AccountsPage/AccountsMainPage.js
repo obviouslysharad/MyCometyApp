@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import Animated, { color, FadeInUp } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import {
+  deleteComety,
   resetSelectedCometyDetails,
   setActiveCometyId,
 } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
@@ -14,6 +15,7 @@ import {
 import { setActiveScreen } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import { colorPalette } from "../../utils/styleUtils";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const AccountsMainPage = () => {
   const activeName = activeCometyNameSelector();
@@ -26,13 +28,19 @@ const AccountsMainPage = () => {
   function switchHandler(cometyId) {
     store.dispatch(setActiveCometyId(cometyId));
   }
+  function deleteCometyHandler(comety) {
+    store.dispatch(deleteComety(comety));
+  }
   return (
-    <Animated.View entering={FadeInUp} style={styles.container}>
+    <Animated.View entering={FadeIn} exiting = {FadeOut} style={styles.container}>
       <View style={styles.allAccountsContainer}>
         {cometyList?.map((comety) => {
           if (comety?.cometyId === activeCometyId) {
             return (
-              <View style={styles.activeAccountContainer}>
+              <View
+                key={comety?.cometyId}
+                style={styles.activeAccountContainer}
+              >
                 <Text style={styles.activeNameStyling}>{activeName}</Text>
                 <View style={styles.detailsContainer}>
                   <Text style={styles.textKey}>Amount: </Text>
@@ -52,24 +60,30 @@ const AccountsMainPage = () => {
             );
           }
           return (
-            <View style={styles.otherAccountsContainer}>
+            <View style={styles.otherAccountsContainer} key={comety?.cometyId}>
               <Text>{comety.cometyName}</Text>
-              <Button onPress={() => switchHandler(comety.cometyId)}>
-                Switch
-              </Button>
+              <View style={styles.buttonsContainer}>
+                <Button onPress={() => switchHandler(comety.cometyId)}>
+                  Switch
+                </Button>
+                <Icon
+                  onPress={() => deleteCometyHandler(comety)}
+                  name="close"
+                  size={24}
+                  color={"black"}
+                />
+              </View>
             </View>
           );
         })}
       </View>
-      <View>
-        <Button
-          textColor="white"
-          style={styles.createButton}
-          onPress={createCometyHandler}
-        >
-          Create Comety
-        </Button>
-      </View>
+      <Button
+        textColor="white"
+        style={styles.createButton}
+        onPress={createCometyHandler}
+      >
+        Create Comety
+      </Button>
     </Animated.View>
   );
 };
@@ -119,10 +133,15 @@ export const styles = StyleSheet.create({
     height: 80,
     marginVertical: 10,
   },
+  buttonsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   createButton: {
     backgroundColor: colorPalette.primaryBtnColor,
     padding: 5,
     marginTop: 10,
+    borderRadius: 32,
   },
 });
 

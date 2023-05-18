@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
+import Animated, { FadeInDown, FadeInUp, FadeOut } from "react-native-reanimated";
 import { setActiveMonth } from "../../store/reducers/cometyDetails/cometyDetailsReducer.js";
 import { monthsListSelector } from "../../store/reducers/cometyDetails/cometyDetailsSelector.js";
 import store from "../../store/store.js";
@@ -11,15 +12,15 @@ const SelectInput = ({setListEnable}) => {
     setListEnable(false);
   }
   return (
-    <View style={styles.container} >
+    <Animated.View entering={FadeInUp} style={styles.container} >
       <View style={styles.listContainer}>
         {monthsList.map((month) => (
-          <TouchableWithoutFeedback onPress={() => selectHandler(month)}>
+          <TouchableWithoutFeedback onPress={() => selectHandler(month)} key = {month}>
             <Text style = {styles.textStyle}>{month}</Text>
           </TouchableWithoutFeedback>
         ))}
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

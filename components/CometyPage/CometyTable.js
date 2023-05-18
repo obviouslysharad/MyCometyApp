@@ -1,13 +1,7 @@
 import React from "react";
-import { DataTable, Button, Checkbox, Text } from "react-native-paper";
-import {
-  getActiveMonth,
-  getUsersData,
-} from "../../store/reducers/cometyData/cometyDataSelector";
+import { DataTable, Checkbox, Text } from "react-native-paper";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import { StyleSheet, View } from "react-native";
-import { getAllMonthsData } from "../../store/reducers/cometyMonthly/cometyMonthlySelector";
 import {
   setActivePopup,
   setActivePopupProps,
@@ -18,13 +12,17 @@ import {
   activeMonthSelector,
   winnerOfTheMonthSelector,
 } from "../../store/reducers/cometyDetails/cometyDetailsSelector";
+import { colorPalette } from "../../utils/styleUtils";
+import Animated, { FadeInLeft, FadeOut } from "react-native-reanimated";
 
 const CometyTable = () => {
   const activeMonth = activeMonthSelector();
   const activeMonthMembers = activeMonthMembersList();
   const winnerOfTheMonth = winnerOfTheMonthSelector();
-  console.log(winnerOfTheMonth);
   const onCheckBoxClicked = (memberData) => {
+    if(!memberData.amount) {
+      return alert("Please select a winner before marking")
+    }
     store.dispatch(setActivePopup("PAID_POPUP"));
     store.dispatch(
       setActivePopupProps({ activeMonth: activeMonth, memberData: memberData })
@@ -33,7 +31,9 @@ const CometyTable = () => {
   return (
     <View style={{ height: "100%" }}>
       {!winnerOfTheMonth?.memberId && (
+        <Animated.View entering={FadeInLeft} exiting = {FadeOut}>
         <Text style={styles.textLabel}>PLEASE SELECT A WINNER</Text>
+        </Animated.View>
       )}
       <DataTable>
         <DataTable.Header>
@@ -43,7 +43,7 @@ const CometyTable = () => {
           <DataTable.Title style={styles.center}>Paid</DataTable.Title>
         </DataTable.Header>
         {activeMonthMembers?.map((memberData) => (
-          <>
+          <View key={memberData?.memberId}>
             <DataTable.Row
               style={memberData?.isWinner && { backgroundColor: "#b8dec5" }}
               key={memberData.memberId}
@@ -60,10 +60,12 @@ const CometyTable = () => {
                   disabled={false}
                   onPress={() => onCheckBoxClicked(memberData)}
                   status={memberData.paid ? "checked" : "unchecked"}
+                  color={colorPalette.sweetGreenColor}
+                  uncheckedColor="red"
                 />
               </DataTable.Cell>
             </DataTable.Row>
-          </>
+          </View>
         ))}
       </DataTable>
     </View>

@@ -8,6 +8,7 @@ import {
 import store from "../../store/store";
 import { v4 as uuidv4 } from "uuid";
 import { setActivePopup, setActiveScreen } from "../../store/reducers/commonData/commonDataReducer";
+import Animated, { FadeInLeft, FadeInRight, FadeOut } from "react-native-reanimated";
 
 const LandingPage = () => {
   const [cometyName, setCometyName] = useState("");
@@ -20,7 +21,7 @@ const LandingPage = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View entering={FadeInLeft}style={styles.container}>
       <Image
         style={styles.imgStyle}
         source={require("../../assets/start.png")}
@@ -43,7 +44,7 @@ const LandingPage = () => {
       >
         Start Comety
       </Button>
-    </View>
+    </Animated.View>
   );
 };
 const styles = StyleSheet.create({

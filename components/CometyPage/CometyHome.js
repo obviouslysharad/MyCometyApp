@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { Button } from "react-native-paper";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import CometyTable from "./CometyTable";
@@ -10,7 +11,7 @@ const CometyHome = () => {
     store.dispatch(setActivePopup("LUCKY_DRAW"));
   }
   return (
-    <View style={styles.container}>
+    <Animated.View entering = {FadeIn} exiting = {FadeOut} style={styles.container}>
       <View style={{ flex: 1 }}>
         <CometyTable />
       </View>
@@ -24,7 +25,7 @@ const CometyHome = () => {
           LUCKY DRAW
         </Button>
       </View>
-    </View>
+    </Animated.View >
   );
 };
 
@@ -39,6 +40,7 @@ export const styles = StyleSheet.create({
   },
   luckyDrawBtn: {
     backgroundColor: "#6C63FF",
+    height: 43
   },
 });
 

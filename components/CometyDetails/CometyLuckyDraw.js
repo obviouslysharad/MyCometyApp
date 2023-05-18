@@ -2,22 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import {
-  setInterestOfTheMonth,
-  setWinnerOfTheMonth,
-} from "../../store/reducers/cometyData/cometyDataReducer";
-import {
-  getActiveMonth,
-  getCometyAmount,
-  getUsersData,
-} from "../../store/reducers/cometyData/cometyDataSelector";
-import { addMonthData } from "../../store/reducers/cometyMonthly/cometyMonthlyReducer";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
 import store from "../../store/store";
 import InputSelect from "../CommonComponents/InputSelect";
 import { colorPalette } from "../../utils/styleUtils";
 import { updateWinnerUsersData } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
 import {
+  activeMonthMembersList,
   activeMonthSelector,
   currentUsersDataSelector,
 } from "../../store/reducers/cometyDetails/cometyDetailsSelector";
@@ -27,8 +18,7 @@ const CometyLuckyDraw = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const [randomButtonLoading, setRandomButtonLoading] = useState(false);
   const [interest, setInterest] = useState(0);
-  const usersData = currentUsersDataSelector();
-
+  const usersData = activeMonthMembersList();
   const onSelect = (selectedItem) => {
     setSelectedMember(selectedItem);
     setShowDropDown(false);
@@ -64,7 +54,7 @@ const CometyLuckyDraw = () => {
     dispatch(setActivePopup(""));
   };
   return (
-    <View>
+    <View style = {styles.container}>
       <Text style={styles.textStyling}>Comety Lucky Draw</Text>
       <View>
         <TextInput
@@ -119,6 +109,8 @@ const CometyLuckyDraw = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+  },
   textStyling: {
     alignSelf: "center",
     fontSize: 20,

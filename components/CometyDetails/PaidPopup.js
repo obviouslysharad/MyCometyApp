@@ -3,9 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import store from "../../store/store";
-import { updateMemberData } from "../../store/reducers/cometyMonthly/cometyMonthlyReducer";
 import { setActivePopup } from "../../store/reducers/commonData/commonDataReducer";
-import { updatePaidUserData } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
+import { updateLedgerbyMonth, updatePaidUserData } from "../../store/reducers/cometyDetails/cometyDetailsReducer";
 import DateTimePicker from "../CommonComponents/DateTimePicker";
 import { useState } from "react";
 import { getFormattedDate } from "../../utils/commonUtils";
@@ -21,8 +20,8 @@ const LeftSwipeActions = () => {
 const PaidPopup = ({ activePopupProps }) => {
   const [date, setDate] = useState(new Date());
   const onSwipeableLeftOpenHandler = () => {
-    const payload = { ...activePopupProps?.memberData, paid: true, date: getFormattedDate(date) }
-    // store.dispatch(updateMemberData(payload));
+    const payload = { ...activePopupProps?.memberData, paid: true, date: getFormattedDate(date) };
+    store.dispatch(updateLedgerbyMonth(payload));
     store.dispatch(updatePaidUserData(payload));
     store.dispatch(setActivePopup(""));
   };
@@ -53,12 +52,11 @@ const PaidPopup = ({ activePopupProps }) => {
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10
   },
   textStyle: {
     fontSize: 18,
     alignSelf: "center",
-    padding: 20,
+    padding: 15,
   },
   swipeableDefaultCont: {
     paddingHorizontal: 30,

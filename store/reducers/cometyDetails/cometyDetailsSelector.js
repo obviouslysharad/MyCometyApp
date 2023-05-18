@@ -53,3 +53,11 @@ export const activeCometyStartDateSelector = () =>
 
 export const activeCometyAmountSelector = () =>
   useSelector((state) => filteredActiveCometyDetails(state).amount);
+
+export const getActiveMonthLedgerSelector = () =>
+  useSelector(
+    (state) =>
+      filteredActiveCometyDetails(state).monthlyData?.[
+        state.cometyDetails?.activeMonth
+      ]?.ledgerOfTheMonth || []
+  );

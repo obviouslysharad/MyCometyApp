@@ -41,7 +41,7 @@ export const cometyDetailsSlice = createSlice({
           comety.startDate = action.payload.startDate;
           comety.amount = action.payload.amount;
           comety.monthlyData = state.monthsList.reduce((acc, month) => {
-            return { ...acc, [month]: { usersData: state.currentUsersData } };
+            return { ...acc, [month]: { usersData: state.currentUsersData, ledgerOfTheMonth: []} };
           }, {});
         }
         return comety;
@@ -91,9 +91,24 @@ export const cometyDetailsSlice = createSlice({
       });
     },
     resetSelectedCometyDetails: (state) => {
-      (state.activeCometyId = ""),
-        (state.activeMonth = ""),
-        (state.currentUsersData = []);
+      state.activeCometyId = "";
+      (state.activeMonth = ""), (state.currentUsersData = []);
+    },
+    deleteComety: (state, action) => {
+      state.cometyList = state.cometyList.filter(
+        (comety) => comety.cometyId !== action.payload.cometyId
+      );
+    },
+    updateLedgerbyMonth: (state, action) => {
+      state.cometyList = state.cometyList.map((comety) => {
+        if (comety.cometyId === state.activeCometyId) {
+          comety.monthlyData[state.activeMonth].ledgerOfTheMonth = [
+            ...comety.monthlyData[state.activeMonth].ledgerOfTheMonth,
+            action.payload,
+          ];
+        }
+        return comety;
+      });
     },
   },
 });
@@ -108,4 +123,6 @@ export const {
   updatePaidUserData,
   addUserData,
   resetSelectedCometyDetails,
+  deleteComety,
+  updateLedgerbyMonth,
 } = cometyDetailsSlice.actions;

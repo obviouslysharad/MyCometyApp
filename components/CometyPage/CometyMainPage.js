@@ -12,6 +12,7 @@ import BottomNavBar from "./BottomNavBar";
 import CometyHome from "./CometyHome";
 import { useState } from "react";
 import AccountsMainPage from "../AccountsPage/AccountsMainPage";
+import Ledger from "./Ledger";
 
 const CometyMainPage = () => {
   const [activeTab, setActiveTab] = useState("HOME");
@@ -22,6 +23,8 @@ const CometyMainPage = () => {
         return <CometyHome />;
       case "ACCOUNTS":
         return <AccountsMainPage />
+      case "LEDGER":
+        return <Ledger />
     }
   };
   return (
@@ -52,14 +55,12 @@ export const styles = StyleSheet.create({
   componentsContainer: {
     //TODO: Refactor this
     height: "100%",
-    marginTop: 40,
-    marginBottom: 40,
   },
   top: { flex: 0.1 },
   middle: { flex: 1, zIndex: -1 },
   bottom: {
     backgroundColor: "white",
-    flex: 0.14,
+    flex: 0.1,
     borderTopStartRadius: 20,
     borderTopEndRadius: 20,
   },
